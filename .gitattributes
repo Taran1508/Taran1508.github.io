@@ -1,2 +1,3 @@
 *.html linguist-language=Go
 *.md linguist-language=Markdown
+*.css linguist-language=Go
