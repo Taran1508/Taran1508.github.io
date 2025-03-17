@@ -4,10 +4,11 @@
 /assets/css/  # If using Hugo Pipes (CSS processing)
 .hugo_build.lock  # Lock file used by Hugo 0.111.0+
 
-../node_modules/*
+/node_modules/
 
 # Local development files
-node_modules/  # If using npm packages for styling or scripts
+
+/node_modules  # If using npm packages for styling or scripts
 .hugo_cache/   # Cache folder for Hugo builds
 
 # OS-specific
