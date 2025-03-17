@@ -5,7 +5,7 @@
 .hugo_build.lock  # Lock file used by Hugo 0.111.0+
 
 # Local development files
-node_modules/  # If using npm packages for styling or scripts
+node_modules  # If using npm packages for styling or scripts
 .hugo_cache/   # Cache folder for Hugo builds
 
 # OS-specific
@@ -13,3 +13,4 @@ node_modules/  # If using npm packages for styling or scripts
 Thumbs.db       # Windows thumbnail cache
 
 tailwindcss.exe
+
