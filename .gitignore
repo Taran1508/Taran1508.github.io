@@ -1,0 +1,14 @@
+/public/      # Default output folder (if not using /docs)
+/resources/   # Temporary generated files (images, etc.)
+/assets/js/   # If using Hugo Pipes (JS processing)
+/assets/css/  # If using Hugo Pipes (CSS processing)
+.hugo_build.lock  # Lock file used by Hugo 0.111.0+
+
+# Local development files
+/node_modules/  # If using npm packages for styling or scripts
+/.hugo_cache/   # Cache folder for Hugo builds
+
+# OS-specific files
+.DS_Store       # macOS system file
+Thumbs.db       # Windows thumbnail cache
+

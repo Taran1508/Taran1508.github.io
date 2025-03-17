@@ -1,0 +1,13 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "Taran - Portfolio"
+theme = "cactus"
+googleAnalytics = ""
+
+publishDir = "docs"
+
+
+[params]
+  mainSection = "http://localhost:1313/"
+  mainSectionTitle = "This site is under construction. Check back soon!"
+
