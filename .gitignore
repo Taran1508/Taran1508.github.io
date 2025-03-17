@@ -8,7 +8,7 @@
 /node_modules/  # If using npm packages for styling or scripts
 /.hugo_cache/   # Cache folder for Hugo builds
 
-# OS-specific files
+# OS-specific
 .DS_Store       # macOS system file
 Thumbs.db       # Windows thumbnail cache
 
