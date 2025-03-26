@@ -1,13 +1,78 @@
 baseURL = "https://taran1508.github.io/"
 languageCode = "en-us"
 title = "Taran - Portfolio"
-theme = "cactus"
+theme = "hugoplate"
 googleAnalytics = ""
 
 publishDir = "docs"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[menu]
+  [[menu.footer]]
+    name = "Github"
+    url = "https://github.com/Taran1508"
+  [[menu.footer]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/taran-mesala"
+  [[menu.footer]]
+    name = "Instagram"
+    url = "https://www.instagram.com/__im.john.__/"
+  [[menu.footer]]
+    name = "Snapchat"
+    url = "https://www.snapchat.com/add/roxtar_john?share_id=rYFrymadGAk&locale=en-US"
+  [[menu.footer]]
+    name = "Email"
+    url = "mailto:meesalataran58@gmail.com"
 
 [params]
   mainSection = "http://localhost:1313/"
   mainSectionTitle = "This site is under construction. Check back soon!"
 
+  [[params.projects]]
+  name = "Cipher"
+  imgurl = "/cipher.png"
+  description = "A secure real-time chat application built with the MEAN stack, featuring encrypted messaging, file sharing, and real-time updates."
+  status = "In Progress"
+  github = ""
+  liveurl = "" 
+  tech = ["MongoDB", "Express", "Angular", "Node.js", "Firebase", "Socket.io"]
+
+  [[params.projects]]
+  name = "Fresk"
+  imgurl = "/fresk.png"
+  description = "A sustainable food and grocery management app designed to reduce waste and promote efficient food usage."
+  status = "In Progress"
+  github = "https://github.com/Taran1508/Fresk"
+  liveurl = ""
+  tech = ["React", "Node.js", "Express", "MongoDB", "Firebase", "TailwindCSS", "JWT", "Docker"]
+
+  [[params.projects]]
+  name = "UrlShortener"
+  imgurl = "/urlshort.png"
+  description = "A simple URL shortener application that allows users to shorten long URLs, manage their shortened URLs, and redirect shortened URLs to the original links."
+  status = "Finished"
+  github = "https://github.com/Taran1508/UrlShortener"
+  liveurl = "https://theous.vercel.app/"
+  tech = ["Node", "Express", "HTML", "CSS", "JS"]
+
+  [[params.projects]]
+  name = "SkyView"
+  imgurl = "/weather.png"
+  description = "A Weather application that allows users to know their current weather conditions."
+  status = "Finished"
+  github = "https://github.com/Taran1508/SkyView"
+  liveurl = ""
+  tech = ["AngularJs", "TypeScript"]
+
+  [[params.projects]]
+  name = "MarkdownMagic"
+  imgurl = "/mdtohtml.png"
+  description = "A Node.js application designed to upload Markdown files and convert them into HTML dynamically."
+  status = "Finished"
+  github = "https://github.com/Taran1508/MarkdownMagic"
+  liveurl = ""
+  tech = ["Node", "Express", "HTML", "CSS", "JS", "Multer"]

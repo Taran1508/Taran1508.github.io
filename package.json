@@ -6,12 +6,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taran1508/Taran1508.github.io.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Taran1508/Taran1508.github.io/issues"
+  },
+  "homepage": "https://github.com/Taran1508/Taran1508.github.io#readme",
   "devDependencies": {
+    "@tailwindcss/cli": "^4.0.15",
+    "@tailwindcss/postcss": "^4.0.15",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.14"
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.0.15"
   }
 }

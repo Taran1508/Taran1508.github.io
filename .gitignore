@@ -6,6 +6,8 @@
 
 /node_modules/
 
+/themes
+
 # Local development files
 
 /node_modules  # If using npm packages for styling or scripts

@@ -1,15 +1,32 @@
-<footer id="footer">
-  <div class="footer-right">
-    Copyright &copy; {{ now.Format "2006" }} {{ if .Site.Copyright }} {{ print .Site.Copyright | markdownify }} {{ else
-    }} {{ print .Site.Title }} {{ end }}
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        {{ range .Site.Menus.main }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-        {{ end }}
-      </ul>
-    </nav>
-  </div>
+<footer id="footer" class="h-[20px] md:h-[280px] bg-black text-white px-8">
+    <div class="py-8 px-4 flex flex-row justify-between">
+        <div class="footer-left py-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw]"
+            style="font-family: 'Space Grotesk', sans-serif;">
+            &copy;
+            {{ if .Site.Copyright }}
+            {{ print .Site.Copyright | markdownify }}
+            {{ else }}
+            {{ print .Site.Title }}
+            {{ now.Format "2006" }}
+            {{ end }}
+        </div>
+        <div class="footer-right py-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw]"
+            style="font-family: 'Space Grotesk', sans-serif;">
+            <nav>
+                <ul class="flex gap-4 text-white gap-10 float-right">
+                    {{ range .Site.Menus.footer }}
+                    <li><a href="{{ .URL }}" class="hover:text-gray-400 ml-4">{{ .Name }}</a></li>
+                    {{ end }}
+                </ul>
+            </nav>
+        </div>
+        <a class="footer-right py-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw]"
+            style="font-family: 'Space Grotesk', sans-serif;" href="#intro">Back to Top</a>
+    </div>
+    <div class="flex justify-center">
+        <div class="footer-right py-4 mt-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:text-[1.2vw]"
+            style="font-family: 'Space Grotesk', sans-serif;">
+            <i>"Power is not will, it is the phenomenon of physically making things happen."</i> — Madara Uchiha
+        </div>
+    </div>
 </footer>

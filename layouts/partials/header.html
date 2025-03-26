@@ -1,25 +1,29 @@
-<header id="header">
-  <a href="{{ .Site.BaseURL }}">
-  {{ if (isset .Site.Params "gravatar") }}
-    <div id="logo" style="background-image: url(https://www.gravatar.com/avatar/{{ md5 .Site.Params.gravatar }}?s=100&d=identicon)"></div>
-  {{ else if (isset .Site.Params "logo") }}
-    <div id="logo" style="background-image: url({{ .Site.Params.logo | absURL }})"></div>
-  {{ else }}
-    <div id="logo" style="background-image: url({{ "images/logo.png" | absURL }})"></div>
-  {{ end}}
-  <div id="title">
-    <h1>{{ .Site.Title }}</h1>
-  </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x" aria-hidden="true"></i></a>
-      </li>
-      {{ range .Site.Menus.main }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-      {{ end }}
-    </ul>
-  </div>
-</header>
+<header class="bg-transparent text-white shadow-md w-full z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Logo / Name -->
+        <a href="#"
+            class="w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw] text-black hover:text-green-400"
+            style="font-family: 'Space Grotesk', sans-serif;">Taran.</a>
 
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-6">
+            <a href="#about" class="text-black hover:text-green-400 transition">About</a>
+            <a href="#projects" class="text-black hover:text-green-400 transition">Projects</a>
+            <a href="#footer" class="text-black hover:text-green-400 transition">Contact</a>
+            <a href="https://drive.google.com/file/d/1qqseIaNxcwEnGwF0M4fiWrqXeGd0u7Ii/view?usp=drivesdk"
+                target="_blank" class="text-black hover:text-green-400 transition">Resume</a>
+        </nav>
+
+        <button id="menu-toggle" class="md:hidden text-2xl focus:outline-none">
+            ☰
+        </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="hidden bg-gray-800 md:hidden">
+        <a href="#home" class="block py-2 px-4 text-white hover:bg-gray-700">Home</a>
+        <a href="#projects" class="block py-2 px-4 text-white hover:bg-gray-700">Projects</a>
+        <a href="#about" class="block py-2 px-4 text-white hover:bg-gray-700">About</a>
+        <a href="#contact" class="block py-2 px-4 text-white hover:bg-gray-700">Contact</a>
+    </nav>
+</header>
