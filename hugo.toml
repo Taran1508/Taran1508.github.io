@@ -33,6 +33,15 @@ publishDir = "docs"
   mainSectionTitle = "This site is under construction. Check back soon!"
 
   [[params.projects]]
+  name = "Express-brute-guard"
+  imgurl = "/express-brute-guard.png"
+  description = "A customizable and production-ready rate-limiting middleware for Node.js."
+  status = "Finished"
+  github = "https://github.com/Taran1508/express-brute-guard"
+  liveurl = "https://www.npmjs.com/package/express-brute-guard" 
+  tech = ["Express", "Node.js", "Jest", "TypeScript"]
+
+  [[params.projects]]
   name = "Cipher"
   imgurl = "/cipher.png"
   description = "A secure real-time chat application built with the MEAN stack, featuring encrypted messaging, file sharing, and real-time updates."
