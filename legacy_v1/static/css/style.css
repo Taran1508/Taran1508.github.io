@@ -1,0 +1,29 @@
+/*! tailwindcss v4.0.15 | MIT License | https://tailwindcss.com */
+.container {
+  width: 100%;
+}
+.block {
+  display: block;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.justify-center {
+  justify-content: center;
+}
+.bg-gradient-to-b {
+  --tw-gradient-position: to bottom in oklab;
+  background-image: linear-gradient(var(--tw-gradient-stops));
+}
+.text-center {
+  text-align: center;
+}
+.text-\[8rem\] {
+  font-size: 8rem;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.text-test {
+  color: blue;
+}

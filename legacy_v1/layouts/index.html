@@ -1,0 +1,55 @@
+{{ define "main" }}
+{{ .Content }}
+
+
+<div class="mt-56 flex justify-center" id="projects">
+    <h1 class=" w-5/6 text-[48px] mb-12 font-semibold" style="font-family: 'Poppins', sans-serif;">Projects</h1>
+</div>
+<div class=" flex justify-center">
+    <div class="w-5/6 projects-container grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{ range .Site.Params.projects }}
+        <div class="project-card  border border-gray-300 p-4 rounded-lg shadow-lg">
+            <h2 class="text-[28px] mb-8 font-semibold" style="font-family: 'Poppins', sans-serif;">{{ .name }}</h2>
+            {{ if .imgurl }}
+            <img src="{{ .imgurl }}" alt="{{ .name }}" class="w-full h-auto mb-4 rounded-md">
+            {{ end }}
+            {{ if eq .status "Finished" }}
+            <span class="text-sm text-green-500 mt-4 mr-4">{{ .status }}</span>
+            {{ else }}
+            <span class="text-sm text-yellow-500 mt-4 mr-4">{{ .status }}</span>
+            {{ end }}
+            {{ if .github }}
+            <a href="{{ .github }}" class="text-blue-500 hover:underline">GitHub</a>
+            {{ end }}
+            {{ if .liveurl }}
+            <a href="{{ .liveurl }}" class="text-green-500 hover:underline ml-4">Live</a>
+            {{ end }}
+
+            <p class="mt-2 text-sm text-gray-700">Tech Stack: {{ delimit .tech ", " }}</p>
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+
+<div class="flex mt-32 justify-center">
+    <p class="mt-6 text-centerw-fit flex text-center text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw] text-green-400"
+        style="font-family: 'Space Grotesk', sans-serif;">
+        Want to see more?
+        <a href="https://github.com/Taran1508"
+            class="w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw] text-blue-400"
+            style="font-family: 'Space Grotesk', sans-serif;">Check out my GitHub Profile</a>
+
+    </p>
+</div>
+
+<div class="flex mb-12 justify-center">
+    <p class="mt-6 text-centerw-fit flex text-center text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw] text-green-400"
+        style="font-family: 'Space Grotesk', sans-serif;">
+        <span class="w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw] text-blue-400"
+            style="font-family: 'Space Grotesk', sans-serif;">Contact Me </span>
+        , Let's build something amazing together!
+    </p>
+</div>
+
+{{ end }}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+
+    <link rel="stylesheet" href='/css/style.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .design {
+            animation-delay: 0.2s;
+        }
+
+        .develop {
+            animation-delay: 0.4s;
+        }
+
+        .deploy {
+            animation-delay: 0.6s;
+        }
+
+        .design:hover,
+        .develop:hover,
+        .deploy:hover {
+            filter: brightness(0.75);
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #34d399, #06b6d4);
+             
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-develop {
+            background-image: linear-gradient(to right, #ef4444, #f97316);
+             
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-deploy {
+            background-image: linear-gradient(to right, #facc15, #f59e0b);
+             
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+
+
+</head>
+
+<body class="flex flex-col">
+    <header class="bg-transparent text-white shadow-md w-full z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        
+        <a href="#"
+            class="w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw] text-black hover:text-green-400"
+            style="font-family: 'Space Grotesk', sans-serif;">Taran.</a>
+
+        
+        <nav class="hidden md:flex space-x-6">
+            <a href="#about" class="text-black hover:text-green-400 transition">About</a>
+            <a href="#projects" class="text-black hover:text-green-400 transition">Projects</a>
+            <a href="#footer" class="text-black hover:text-green-400 transition">Contact</a>
+            <a href="https://drive.google.com/file/d/1qqseIaNxcwEnGwF0M4fiWrqXeGd0u7Ii/view?usp=drivesdk"
+                target="_blank" class="text-black hover:text-green-400 transition">Resume</a>
+        </nav>
+
+        <button id="menu-toggle" class="md:hidden text-2xl focus:outline-none">
+            ☰
+        </button>
+    </div>
+
+    
+    <nav id="mobile-menu" class="hidden bg-gray-800 md:hidden">
+        <a href="#home" class="block py-2 px-4 text-white hover:bg-gray-700">Home</a>
+        <a href="#projects" class="block py-2 px-4 text-white hover:bg-gray-700">Projects</a>
+        <a href="#about" class="block py-2 px-4 text-white hover:bg-gray-700">About</a>
+        <a href="#contact" class="block py-2 px-4 text-white hover:bg-gray-700">Contact</a>
+    </nav>
+</header>
+    <main class="">
+        
+  <section>
+  <div class="container text-center">
+    <div
+      class="from-body to-light dark:from-darkmode-body dark:to-darkmode-light rounded-2xl bg-gradient-to-b px-8 py-14">
+      <h1>Categories</h1>
+      
+
+
+
+
+<ul class="mt-6 inline-flex space-x-1 capitalize">
+  <li>
+    <a class="text-primary dark:text-darkmode-primary" href="https://taran1508.github.io/">
+      Home
+    </a>
+    <span class="inlin-block mr-1">/</span>
+  </li>
+  
+    
+  
+  <li>
+    <span class="text-primary dark:text-darkmode-primary">
+      Categories
+    </span>
+  </li>
+</ul>
+
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="section">
+    <div class="container">
+      <ul class="text-center">
+        
+        
+          
+        
+        
+        
+      </ul>
+    </div>
+  </section>
+
+    </main>
+    <footer id="footer" class="h-[20px] md:h-[280px] bg-black text-white px-8">
+    <div class="py-8 px-4 flex flex-row justify-between">
+        <div class="footer-left py-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw]"
+            style="font-family: 'Space Grotesk', sans-serif;">
+            &copy;
+            
+            Taran - Portfolio
+            2025
+            
+        </div>
+        <div class="footer-right py-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw]"
+            style="font-family: 'Space Grotesk', sans-serif;">
+            <nav>
+                <ul class="flex gap-4 text-white gap-10 float-right">
+                    
+                    <li><a href="mailto:meesalataran58@gmail.com" class="hover:text-gray-400 ml-4">Email</a></li>
+                    
+                    <li><a href="https://github.com/Taran1508" class="hover:text-gray-400 ml-4">Github</a></li>
+                    
+                    <li><a href="https://www.instagram.com/__im.john.__/" class="hover:text-gray-400 ml-4">Instagram</a></li>
+                    
+                    <li><a href="https://www.linkedin.com/in/taran-mesala" class="hover:text-gray-400 ml-4">LinkedIn</a></li>
+                    
+                    <li><a href="https://www.snapchat.com/add/roxtar_john?share_id=rYFrymadGAk&amp;locale=en-US" class="hover:text-gray-400 ml-4">Snapchat</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+        <a class="footer-right py-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:flex md:text-[1.7vw]"
+            style="font-family: 'Space Grotesk', sans-serif;" href="#intro">Back to Top</a>
+    </div>
+    <div class="flex justify-center">
+        <div class="footer-right py-4 mt-4 w-fit flex-col text-[1rem] leading-none tracking-tighter md:text-[1.2vw]"
+            style="font-family: 'Space Grotesk', sans-serif;">
+            <i>"Power is not will, it is the phenomenon of physically making things happen."</i> — Madara Uchiha
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

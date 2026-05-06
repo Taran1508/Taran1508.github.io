@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Legacy Gradients - kept but might need adjustment for light theme? 
+   Usually gradients look fine on white. */
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    #10b981,
+    #2563eb
+  ); /* Darker shades for white bg? Keeping original for now */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-develop {
+  background: linear-gradient(to right, #db2777, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-deploy {
+  background: linear-gradient(to right, #d97706, #dc2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

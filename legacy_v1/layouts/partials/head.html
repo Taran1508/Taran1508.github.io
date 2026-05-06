@@ -1,0 +1,79 @@
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+
+    <link rel="stylesheet" href='{{ "css/style.css" | relURL }}'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .design {
+            animation-delay: 0.2s;
+        }
+
+        .develop {
+            animation-delay: 0.4s;
+        }
+
+        .deploy {
+            animation-delay: 0.6s;
+        }
+
+        .design:hover,
+        .develop:hover,
+        .deploy:hover {
+            filter: brightness(0.75);
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #34d399, #06b6d4);
+            /* Green to Cyan */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-develop {
+            background-image: linear-gradient(to right, #ef4444, #f97316);
+            /* Red to Orange */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-deploy {
+            background-image: linear-gradient(to right, #facc15, #f59e0b);
+            /* Yellow to Amber */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+
+
+</head>
