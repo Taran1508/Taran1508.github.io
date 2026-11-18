@@ -10,6 +10,7 @@ import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Effects from "@/components/ui/Effects";
+import SponsorModal from "@/components/Sponsor";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <SponsorModal />
     </>
   );
 }

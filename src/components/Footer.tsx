@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import { SponsorButton } from "@/components/Sponsor";
 
 export default function Footer() {
   return (
@@ -12,6 +13,7 @@ export default function Footer() {
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">LinkedIn</a>
           <a href={profile.snapchat} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">Snapchat</a>
           <a href={`mailto:${profile.email}`} className="transition-colors hover:text-accent">Email</a>
+          <SponsorButton className="transition-colors hover:text-accent">Sponsor</SponsorButton>
           <a href="#" className="transition-colors hover:text-accent">Back to top ↑</a>
         </nav>
       </div>

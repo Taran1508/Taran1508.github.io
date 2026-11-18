@@ -10,6 +10,7 @@ export const profile = {
   github: "https://github.com/Taran1508",
   linkedin: "https://linkedin.com/in/taran-mesala",
   snapchat: "https://www.snapchat.com/add/roxtar_john?share_id=rYFrymadGAk&locale=en-US",
+  whatsapp: "919492215158",
   resume: "/Taran_Mesala_Resume.pdf",
 };
 

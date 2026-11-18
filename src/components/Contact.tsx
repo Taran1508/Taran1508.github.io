@@ -31,20 +31,27 @@ export default function Contact() {
     if (Object.keys(found).length > 0) return;
 
     setStatus("loading");
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    };
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          message: form.message.trim(),
-          _gotcha: form.website, // honeypot; bots fill it, people never see it
-        }),
+        body: JSON.stringify({ ...payload, _gotcha: form.website }),
       });
       if (res.ok) {
+        const text = `Hi Taran, I just sent a message from your portfolio.
+
+Name: ${payload.name}
+Email: ${payload.email}
+
+${payload.message}`;
         setStatus("success");
         setForm({ name: "", email: "", message: "", website: "" });
+        window.location.href = `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(text)}`;
       } else {
         setStatus("error");
       }
@@ -189,7 +196,7 @@ export default function Contact() {
 
           <div aria-live="polite" role="status" className="mt-4 text-sm">
             {status === "success" && (
-              <p className="text-accent">Thanks. Your message was submitted.</p>
+              <p className="text-accent">Thanks. Redirecting you to WhatsApp…</p>
             )}
             {status === "error" && (
               <p className="text-red-400">

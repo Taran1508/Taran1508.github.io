@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { profile } from "@/data/profile";
+import { SponsorButton } from "@/components/Sponsor";
 
 const links = [
   { href: "#services", label: "Services" },
@@ -72,7 +73,8 @@ export default function Navbar() {
               </a>
             );
           })}
-          <a href="#contact" className="btn-primary ml-3 !px-5 !py-2">
+          <SponsorButton className="btn-secondary ml-2 !px-4 !py-2">♥ Sponsor</SponsorButton>
+          <a href="#contact" className="btn-primary ml-1 !px-5 !py-2">
             Hire me
           </a>
         </nav>
@@ -107,6 +109,7 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
+            <SponsorButton className="block w-full rounded-xl px-4 py-3 text-left text-base font-medium hover:bg-fg/5">♥ Sponsor</SponsorButton>
             <a href="#contact" onClick={() => setIsOpen(false)} className="block rounded-xl px-4 py-3 text-base font-semibold text-accent hover:bg-fg/5">
               Hire me
             </a>
