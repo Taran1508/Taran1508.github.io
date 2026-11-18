@@ -1,184 +1,89 @@
 "use client";
 
-import { experiences } from "@/data/experience";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { experiences, otherExperience, type Experience as Exp } from "@/data/experience";
+import Reveal from "@/components/ui/Reveal";
+import SpotlightCard from "@/components/ui/SpotlightCard";
+
+function Entry({ exp, compact }: { exp: Exp; compact?: boolean }) {
+  return (
+    <li className="relative pl-8 md:pl-12">
+      <span aria-hidden="true" className="absolute -left-[7px] top-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-bg">
+        <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_14px_3px_rgba(4,120,87,0.45)]" />
+      </span>
+      <Reveal>
+        <article>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h3 className="font-grotesk text-xl font-bold md:text-2xl">
+              {exp.role} <span className="font-medium text-fg/50">· {exp.company}</span>
+            </h3>
+            <p className="rounded-full border border-fg/10 bg-white px-3 py-1 font-mono text-xs text-fg/60">
+              {exp.period} · {exp.location}
+            </p>
+          </div>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-fg/65">{exp.summary}</p>
+
+          {exp.highlights.length > 0 && (
+            <ul className={`mt-5 grid gap-3 ${compact ? "" : "md:grid-cols-2"}`}>
+              {exp.highlights.map((h) => (
+                <SpotlightCard key={h.label} as="li" className="p-4">
+                  <p className="font-mono text-xs uppercase tracking-wider text-accent">{h.label}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-fg/75">{h.text}</p>
+                </SpotlightCard>
+              ))}
+            </ul>
+          )}
+
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies">
+            {exp.tech.map((t) => (
+              <li key={t} className="chip">{t}</li>
+            ))}
+          </ul>
+        </article>
+      </Reveal>
+    </li>
+  );
+}
 
 export default function Experience() {
-  const [activeIdx, setActiveIdx] = useState(0);
+  const ref = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 90, damping: 22 });
 
   return (
-    <div className="py-24 w-full bg-[#fafafa] relative overflow-hidden" id="experience">
-      {/* Dynamic Background Glow */}
-      <motion.div 
-        animate={{
-          backgroundColor: experiences[activeIdx].color,
-          opacity: 0.05
-        }}
-        className="absolute inset-0 transition-colors duration-1000 -z-10"
-      />
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0),rgba(250,250,250,1))] -z-10" />
+    <section id="experience" className="section" aria-labelledby="experience-title">
+      <div className="container-page">
+        <Reveal>
+          <p className="eyebrow">Experience</p>
+          <h2 id="experience-title" className="section-title max-w-3xl">
+            Backend ownership, API modernization, production reliability
+          </h2>
+        </Reveal>
 
-      <div className="w-full flex justify-center">
-        <div className="w-full px-6 md:px-0 md:w-5/6">
-          {/* Header - Kept as per user request */}
-          <div className="mb-16">
-            <motion.span 
-              className="text-purple-600 font-bold tracking-[0.3em] uppercase text-[10px] mb-2 block"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Career Path
-            </motion.span>
-            <motion.h1
-              className="text-5xl md:text-7xl font-black font-sans text-black tracking-tight"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              Experience<span className="text-purple-600">.</span>
-            </motion.h1>
-          </div>
-
-          {/* Interactive Glass Dashboard */}
-          <div className="bg-white/40 backdrop-blur-xl border border-white/20 rounded-[3rem] p-4 md:p-8 shadow-2xl shadow-gray-200/50 flex flex-col lg:flex-row gap-8 lg:gap-16">
-            
-            {/* Sidebar Navigation */}
-            <div className="w-full lg:w-1/4 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible no-scrollbar p-2">
-              {experiences.map((exp, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveIdx(idx)}
-                  className={`group relative p-4 md:p-6 rounded-[2rem] text-left transition-all duration-500 min-w-[200px] lg:min-w-0 ${
-                    activeIdx === idx 
-                      ? "bg-white shadow-xl shadow-gray-100 ring-1 ring-gray-100" 
-                      : "hover:bg-white/50"
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div 
-                      className="w-10 h-10 rounded-2xl flex items-center justify-center text-lg font-black transition-all duration-500 shadow-sm"
-                      style={{ 
-                        backgroundColor: activeIdx === idx ? exp.color : "#f3f4f6",
-                        color: activeIdx === idx ? "#fff" : "#9ca3af"
-                      }}
-                    >
-                      {exp.company[0]}
-                    </div>
-                    <div>
-                      <h3 className={`text-sm md:text-base font-bold font-sans transition-colors ${
-                        activeIdx === idx ? "text-black" : "text-gray-400 group-hover:text-gray-600"
-                      }`}>
-                        {exp.company}
-                      </h3>
-                      <p className="text-[9px] font-bold font-grotesk tracking-widest uppercase text-gray-400">
-                        {exp.period}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  {activeIdx === idx && (
-                    <motion.div 
-                      layoutId="active-pill"
-                      className="absolute right-4 w-1.5 h-1.5 rounded-full"
-                      style={{ backgroundColor: exp.color }}
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            {/* Content Display Area */}
-            <div className="w-full lg:w-3/4 bg-white/60 rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-               {/* Background Decorative Graphic */}
-               <motion.div 
-                  key={`bg-${activeIdx}`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 0.03, scale: 1 }}
-                  className="absolute -right-10 -bottom-10 text-[300px] font-black pointer-events-none italic"
-                  style={{ color: experiences[activeIdx].color }}
-               >
-                  {experiences[activeIdx].company[0]}
-               </motion.div>
-
-               <AnimatePresence mode="wait">
-                 <motion.div
-                   key={activeIdx}
-                   initial={{ opacity: 0, y: 20 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   exit={{ opacity: 0, y: -20 }}
-                   transition={{ duration: 0.5, ease: "easeOut" }}
-                   className="relative z-10"
-                 >
-                   <div className="mb-10">
-                     <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: "60px" }}
-                        className="h-1 mb-6 rounded-full"
-                        style={{ backgroundColor: experiences[activeIdx].color }}
-                     />
-                     <h2 className="text-4xl md:text-6xl font-black font-sans text-black leading-tight mb-4 tracking-tighter">
-                       {experiences[activeIdx].role}
-                     </h2>
-                     <div className="flex flex-wrap items-center gap-4 text-gray-400 font-grotesk font-bold text-xs uppercase tracking-widest">
-                        <span className="flex items-center gap-2">
-                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                           {experiences[activeIdx].location}
-                        </span>
-                        <span>/</span>
-                        <span className="flex items-center gap-2">
-                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                           {experiences[activeIdx].period}
-                        </span>
-                     </div>
-                   </div>
-
-                   <div className="grid grid-cols-1 gap-4 mb-10">
-                     {experiences[activeIdx].points.map((point, pIdx) => (
-                       <motion.div
-                         key={pIdx}
-                         initial={{ opacity: 0, x: -10 }}
-                         animate={{ opacity: 1, x: 0 }}
-                         transition={{ delay: 0.2 + pIdx * 0.1 }}
-                         className="flex items-start gap-5 group/item"
-                       >
-                         <div 
-                           className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-300 group-hover/item:scale-150"
-                           style={{ backgroundColor: experiences[activeIdx].color }}
-                         />
-                         <p className="text-base md:text-lg font-grotesk text-gray-600 leading-relaxed">
-                           {point}
-                         </p>
-                       </motion.div>
-                     ))}
-                   </div>
-
-                   {experiences[activeIdx].tech && (
-                     <div className="flex flex-wrap gap-2 pt-6 border-t border-gray-100">
-                       {experiences[activeIdx].tech.map((t, tIdx) => (
-                         <motion.span 
-                           key={tIdx}
-                           whileHover={{ y: -5, scale: 1.05 }}
-                           className="px-4 py-2 rounded-xl text-[10px] font-black font-grotesk tracking-widest uppercase transition-all duration-300 shadow-sm hover:shadow-lg border"
-                           style={{ 
-                             backgroundColor: "#fff",
-                             borderColor: "#f3f4f6",
-                             color: experiences[activeIdx].color
-                           }}
-                         >
-                           {t}
-                         </motion.span>
-                       ))}
-                     </div>
-                   )}
-                 </motion.div>
-               </AnimatePresence>
-            </div>
-          </div>
+        <div className="relative ml-1.5 mt-14">
+          <div aria-hidden="true" className="absolute bottom-0 left-0 top-0 w-px bg-fg/10" />
+          <motion.div
+            aria-hidden="true"
+            style={{ scaleY }}
+            className="absolute bottom-0 left-0 top-0 w-px origin-top bg-accent"
+          />
+          <ol ref={ref} className="space-y-14">
+            {experiences.map((e) => (
+              <Entry key={e.company} exp={e} />
+            ))}
+          </ol>
         </div>
+
+        <Reveal>
+          <h3 className="mt-20 font-grotesk text-lg font-bold text-fg/80">Other engagements and earlier experience</h3>
+        </Reveal>
+        <ol className="ml-1.5 mt-8 space-y-10 border-l border-fg/10">
+          {otherExperience.map((e) => (
+            <Entry key={e.company} exp={e} compact />
+          ))}
+        </ol>
       </div>
-    </div>
+    </section>
   );
 }

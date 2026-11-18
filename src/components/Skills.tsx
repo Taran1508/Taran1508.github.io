@@ -1,116 +1,134 @@
-"use client";
+import {
+  siTypescript, siJavascript, siPython, siOpenjdk, siReact, siNextdotjs, siTailwindcss, siNodedotjs,
+  siFastify, siExpress, siGraphql, siPostgresql, siMongodb, siPrisma, siRedis, siSupabase, siDocker,
+  siJenkins, siGithubactions, siGrafana, siGit, siVitest, siLangchain, siLanggraph, siOllama,
+  siAnthropic, siGooglegemini, siJsonwebtokens, siOpenid, siWebauthn,
+} from "simple-icons";
+import {
+  Database, Globe, Layers, Brain, BookOpenText, Binary, ScanSearch, Bot, ShieldCheck, Smartphone,
+  LogIn, FileKey, GitBranch, FlaskConical, CheckCheck, Puzzle, Plug,
+  type LucideIcon,
+} from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
 
-import { skillCategories } from "@/data/skills";
-import { motion } from "framer-motion";
+// Brand logo (simple-icons path) or a line icon (Lucide) for skills without an official logo.
+type Skill = { name: string; path?: string; icon?: LucideIcon };
+
+const rename: Record<string, string> = {
+  OpenJDK: "Java",
+  "JSON Web Tokens": "JWT",
+  OpenID: "OIDC",
+  "Google Gemini": "Gemini",
+  Express: "Express.js",
+};
+const brand = (i: { title: string; path: string }): Skill => ({ name: rename[i.title] ?? i.title, path: i.path });
+const line = (name: string, icon: LucideIcon): Skill => ({ name, icon });
+
+const groups: { title: string; hint: string; skills: Skill[] }[] = [
+  {
+    title: "Languages",
+    hint: "What I write",
+    skills: [siTypescript, siJavascript, siPython, siOpenjdk].map(brand).concat(line("SQL", Database)),
+  },
+  {
+    title: "Frontend",
+    hint: "What users see",
+    skills: [siReact, siNextdotjs, siTailwindcss].map(brand),
+  },
+  {
+    title: "Backend",
+    hint: "Services and APIs",
+    skills: [siNodedotjs, siFastify, siExpress, siGraphql].map(brand).concat(line("REST APIs", Globe)),
+  },
+  {
+    title: "Data",
+    hint: "Where data lives",
+    skills: [siPostgresql, siMongodb, siPrisma, siSupabase, siRedis].map(brand).concat(line("BullMQ", Layers)),
+  },
+  {
+    title: "AI & GenAI",
+    hint: "LLM products and agents",
+    skills: [
+      ...[siLangchain, siLanggraph, siOllama, siAnthropic, siGooglegemini].map(brand),
+      line("LLM integration", Brain),
+      line("RAG", BookOpenText),
+      line("Embeddings", Binary),
+      line("Vector search", ScanSearch),
+      line("Multi-agent", Bot),
+    ],
+  },
+  {
+    title: "Security",
+    hint: "Auth and access control",
+    skills: [
+      ...[siJsonwebtokens, siOpenid, siWebauthn].map(brand),
+      line("RBAC", ShieldCheck),
+      line("MFA", Smartphone),
+      line("SSO", LogIn),
+      line("SAML", FileKey),
+    ],
+  },
+  {
+    title: "DevOps & Testing",
+    hint: "Shipping and confidence",
+    skills: [
+      ...[siDocker, siJenkins, siGithubactions, siGrafana, siGit, siVitest].map(brand),
+      line("CI/CD", GitBranch),
+      line("Supertest", FlaskConical),
+      line("Unit testing", CheckCheck),
+      line("Integration", Puzzle),
+      line("API testing", Plug),
+    ],
+  },
+];
 
 export default function Skills() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
-    <div className="pt-8 pb-24 w-full" id="skills">
-      <div className="w-full flex justify-center">
-        <div className="w-full px-6 md:px-0 md:w-5/6 overflow-visible">
-          <motion.h1
-            className="text-4xl md:text-[48px] mb-12 font-semibold font-sans text-black"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false }}
-          >
-            Skill Set
-          </motion.h1>
+    <section id="skills" className="section" aria-labelledby="skills-title">
+      <div className="container-page">
+        <Reveal>
+          <p className="eyebrow">Technical skills</p>
+          <h2 id="skills-title" className="section-title max-w-3xl">
+            The stack behind the work
+          </h2>
+        </Reveal>
 
-          <motion.div
-            className="mb-12 w-full"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false }}
-            variants={containerVariants}
-          >
-            <h2 className="text-lg mb-6 font-grotesk text-black">
-              <b>My Current Tech Stack:</b> The technologies I actively work
-              with.
-            </h2>
-            <div className="flex flex-row flex-wrap gap-6 items-center w-full min-h-[50px]">
-              {skillCategories[0].skills.map((skill, idx) => (
-                <div key={idx} className="flex flex-col items-center gap-1 group">
-                  <motion.img
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.1 }}
-                    src={skill.icon}
-                    className="w-12 h-12 cursor-pointer object-contain"
-                    alt={skill.name}
-                    title={skill.name}
-                    onError={(e) => {
-                      // Fallback for broken images
-                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${skill.name}&background=random&color=fff`;
-                    }}
-                  />
-                  <span className="text-[10px] text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity font-grotesk text-center">
-                    {skill.name}
-                  </span>
+        <div className="mt-12 grid gap-4 lg:grid-cols-2">
+          {groups.map((g, gi) => (
+            <Reveal key={g.title} delay={(gi % 2) * 0.08} className={gi === groups.length - 1 ? "lg:col-span-2" : ""}>
+              <div className="glass h-full p-5 sm:p-6">
+                <div className="flex items-baseline justify-between gap-3 border-b border-fg/10 pb-3">
+                  <h3 className="font-grotesk text-xl font-bold">{g.title}</h3>
+                  <p className="text-xs text-fg/50">{g.hint}</p>
                 </div>
-              ))}
-            </div>
-          </motion.div>
 
-          <motion.h2
-            className="text-lg mt-16 md:mt-28 mb-8 font-grotesk text-black"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }}
-            transition={{ delay: 0.3 }}
-          >
-            <b>Previously Used:</b> Tech I’ve worked with before but don’t use
-            as often.
-          </motion.h2>
-
-          <div className="text-left grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            {skillCategories.slice(1).map((category, idx) => (
-              <motion.div
-                key={idx}
-                className="flex flex-col"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false, margin: "-50px" }}
-                variants={containerVariants}
-              >
-                <h3 className="text-2xl md:text-[28px] mb-6 font-semibold font-sans text-black min-h-[3.5rem] flex items-center">
-                  {category.title}
-                </h3>
-                <motion.div
-                  className="flex flex-row gap-5 flex-wrap"
-                  variants={containerVariants}
-                >
-                  {category.skills.map((skill, sIdx) => (
-                    <motion.img
-                      key={sIdx}
-                      variants={itemVariants}
-                      whileHover={{ scale: 1.1 }}
-                      src={skill.icon}
-                      className="w-10 h-10 md:w-12 md:h-12 cursor-pointer object-contain"
-                      title={skill.name}
-                      alt={skill.name}
-                    />
-                  ))}
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
+                <ul className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(5rem,1fr))] gap-1">
+                  {g.skills.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <li
+                        key={s.name}
+                        className="group flex flex-col items-center gap-2.5 rounded-xl px-1 py-3 text-fg/75 transition-all duration-300 hover:-translate-y-1 hover:bg-accent/10 hover:text-accent"
+                      >
+                        {Icon ? (
+                          <Icon aria-hidden="true" className="h-9 w-9" strokeWidth={1.5} />
+                        ) : (
+                          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-9 w-9 fill-current">
+                            <path d={s.path} />
+                          </svg>
+                        )}
+                        <span className="text-center text-xs font-medium leading-tight text-fg/55 transition-colors group-hover:text-accent">
+                          {s.name}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

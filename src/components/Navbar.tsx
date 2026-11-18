@@ -1,156 +1,118 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { profile } from "@/data/profile";
+
+const links = [
+  { href: "#services", label: "Services" },
+  { href: "#projects", label: "Projects" },
+  { href: "#experience", label: "Experience" },
+  { href: "#skills", label: "Skills" },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("");
 
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-    open: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll-spy: highlight the section currently in view.
+  useEffect(() => {
+    const ids = [...links.map((l) => l.href.slice(1)), "contact"];
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <header className="bg-transparent text-black shadow-sm w-full z-50 fixed top-0 backdrop-blur-md bg-white/70">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <Link
-          href="#"
-          className="text-2xl font-bold font-grotesk tracking-tighter hover:text-green-600 transition-colors"
-        >
-          Taran.
-        </Link>
+    <header className="fixed top-0 z-50 w-full px-4 pt-4">
+      <div
+        className={`mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full border px-5 transition-all duration-500 ${
+          scrolled
+            ? "border-fg/10 bg-bg/70 shadow-[0_8px_40px_-12px_rgba(11,18,32,0.18)] backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        }`}
+      >
+        <a href="#" className="font-grotesk text-xl font-bold tracking-tight">
+          Taran<span className="gradient-text">.</span>
+        </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8 font-grotesk text-lg">
-          <Link
-            href="#about"
-            className="hover:text-green-600 transition-colors relative group"
-          >
-            About
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
-          </Link>
-          <Link
-            href="#experience"
-            className="hover:text-green-600 transition-colors relative group"
-          >
-            Experience
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
-          </Link>
-          <Link
-            href="#projects"
-            className="hover:text-green-600 transition-colors relative group"
-          >
-            Projects
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
-          </Link>
-          <Link
-            href="#contact"
-            className="hover:text-green-600 transition-colors relative group"
-          >
-            Contact
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
-          </Link>
-          <Link
-            href="https://drive.google.com/file/d/1ias0_CZXJiTSaLjAo_0P98pJFZzgPAO9/view"
-            target="_blank"
-            className="hover:text-green-600 transition-colors relative group"
-          >
-            Resume
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
-          </Link>
+        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          {links.map((l) => {
+            const on = active === l.href.slice(1);
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  on ? "text-fg" : "text-fg/60 hover:text-fg"
+                }`}
+              >
+                {on && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 -z-10 rounded-full bg-fg/10"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
+                {l.label}
+              </a>
+            );
+          })}
+          <a href="#contact" className="btn-primary ml-3 !px-5 !py-2">
+            Hire me
+          </a>
         </nav>
 
-        {/* Mobile Toggle */}
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 focus:outline-none"
-          aria-label="Toggle menu"
+          type="button"
+          onClick={() => setIsOpen((o) => !o)}
+          className="rounded-full p-2 md:hidden"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-nav"
         >
-          <div className="w-6 h-5 relative flex flex-col justify-between">
-            <span
-              className={`w-full h-0.5 bg-black transition-all duration-300 ${
-                isOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`w-full h-0.5 bg-black transition-all duration-300 ${
-                isOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`w-full h-0.5 bg-black transition-all duration-300 ${
-                isOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
-          </div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            {isOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          </svg>
         </button>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
           <motion.nav
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
-            className="bg-white border-t border-gray-100 md:hidden overflow-hidden"
+            id="mobile-nav"
+            aria-label="Mobile"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="glass mx-auto mt-2 max-w-5xl bg-bg/90 p-3 backdrop-blur-xl md:hidden"
           >
-            <div className="flex flex-col py-4">
-              <Link
-                href="#about"
-                className="py-3 px-8 text-lg font-grotesk hover:bg-gray-50 hover:text-green-600 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="#experience"
-                className="py-3 px-8 text-lg font-grotesk hover:bg-gray-50 hover:text-green-600 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Experience
-              </Link>
-              <Link
-                href="#projects"
-                className="py-3 px-8 text-lg font-grotesk hover:bg-gray-50 hover:text-green-600 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Projects
-              </Link>
-              <Link
-                href="#contact"
-                className="py-3 px-8 text-lg font-grotesk hover:bg-gray-50 hover:text-green-600 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                href="https://drive.google.com/file/d/1ias0_CZXJiTSaLjAo_0P98pJFZzgPAO9/view"
-                target="_blank"
-                className="py-3 px-8 text-lg font-grotesk hover:bg-gray-50 hover:text-green-600 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Resume
-              </Link>
-            </div>
+            {links.map((l) => (
+              <a key={l.href} href={l.href} onClick={() => setIsOpen(false)} className="block rounded-xl px-4 py-3 text-base font-medium hover:bg-fg/5">
+                {l.label}
+              </a>
+            ))}
+            <a href="#contact" onClick={() => setIsOpen(false)} className="block rounded-xl px-4 py-3 text-base font-semibold text-accent hover:bg-fg/5">
+              Hire me
+            </a>
+            <a href={profile.resume} download onClick={() => setIsOpen(false)} className="block rounded-xl px-4 py-3 text-base font-medium hover:bg-fg/5">
+              Resume
+            </a>
           </motion.nav>
         )}
       </AnimatePresence>

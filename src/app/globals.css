@@ -2,51 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-shadow {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #f8f8f6;
 }
 
 body {
-  background-color: #ffffff;
-  color: #000000;
-  font-family: "Poppins", sans-serif;
+  background-color: #f8f8f6;
+  color: #0b1220;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Legacy Gradients - kept but might need adjustment for light theme? 
-   Usually gradients look fine on white. */
-.gradient-text {
-  background: linear-gradient(
-    to right,
-    #10b981,
-    #2563eb
-  ); /* Darker shades for white bg? Keeping original for now */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+::selection {
+  background: rgba(4, 120, 87, 0.25);
 }
 
-.gradient-text-develop {
-  background: linear-gradient(to right, #db2777, #7c3aed);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f8f8f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #cfd3d9;
+  border-radius: 10px;
 }
 
-.gradient-text-deploy {
-  background: linear-gradient(to right, #d97706, #dc2626);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+:focus-visible {
+  outline: 2px solid #047857;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-.animate-fade-in {
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .section {
+    @apply relative scroll-mt-16 py-24 md:py-32;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-8 bg-gradient-to-r from-accent to-transparent;
+  }
+  .section-title {
+    @apply mt-4 font-grotesk text-3xl font-bold tracking-tight text-fg md:text-5xl;
+  }
+  .gradient-text {
+    @apply text-accent;
+  }
+  .chip {
+    @apply rounded-full border border-fg/10 bg-white px-3 py-1 font-mono text-xs text-fg/75 transition-colors;
+  }
+  .glass {
+    @apply rounded-2xl border border-fg/10 bg-white/70 backdrop-blur-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
+  }
+  .btn-primary {
+    @apply btn bg-fg text-white hover:bg-accent;
+  }
+  .btn-secondary {
+    @apply btn border border-fg/20 bg-white text-fg hover:border-fg;
+  }
+}
+
+/* Cursor-following spotlight on cards */
+.spot {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(4, 120, 87, 0.08), transparent 60%);
+}
+.spot:hover::before {
+  opacity: 1;
+}
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(4, 120, 87, 0.6), transparent 65%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.spot:hover::after {
+  opacity: 1;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(11, 18, 32, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 18, 32, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
 }
